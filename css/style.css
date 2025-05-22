@@ -41,12 +41,15 @@ body::after {
 }
 
 .container {
-    width: 1200px;
+    width: 90%;
+    max-width: 1600px;
     margin: 0 auto;
-    background-color: rgba(255, 255, 255, 0.9); /* 半透明背景 */
-    backdrop-filter: blur(5px); /* 毛玻璃效果 */
+    background-color: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(5px);
     box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+    padding: 40px; /* 添加内边距，导航栏无此 class，不受影响 */
 }
+
 
 /* 按钮样式 */
 /* 原代码中的按钮样式 */
@@ -65,11 +68,16 @@ body::after {
     background-color: var(--primary-color); /* 保留原有红色背景 */
     color: white; /* 确保所有主按钮文字为白色 */
     border: none;
+	padding 5px 5px
 }
 
 /* 或者仅修改右上角按钮 */
 .header .btn-primary {
+    padding: 5px 10px; /* 原 padding 可能为 10px 20px，调整左右边距为 20px */
+    /* 其他样式保持不变 */
+    background-color: var(--primary-color);
     color: white;
+    border: none;
 }
 .btn-secondary {
     background-color: var(--secondary-color);
@@ -101,7 +109,7 @@ body::after {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 15px 0;
+    padding: 5px 20px;
 }
 
 .logo {
@@ -450,25 +458,44 @@ body::after {
 }
 
 /* 特色模块 */
+/* CSS 样式替换为以下内容 */
 .features {
-    background-color: rgba(240, 240, 240, 0.7); /* 半透明背景 */
+    background-color: rgba(240, 240, 240, 0.7);
 }
 
 .feature-scroll {
     display: flex;
-    overflow-x: auto;
+    flex-wrap: wrap; /* 关键：允许换行 */
+    overflow-x: hidden;
     padding: 20px 0;
-    scroll-snap-type: x mandatory;
+    gap: 20px; /* 使用 gap 替代 margin-right */
 }
 
 .feature-item {
-    min-width: 300px;
-    margin-right: 20px;
-    background-color: rgba(255, 255, 255, 0.85); /* 半透明背景 */
+    flex: 1; /* 弹性增长 */
+    min-width: calc(33.33% - 20px); /* 3 列布局 */
+    background-color: rgba(255, 255, 255, 0.85);
     border-radius: 8px;
     padding: 20px;
-    scroll-snap-align: start;
     box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+    transition: transform 0.3s;
+}
+
+/* 小屏幕适配 */
+@media (max-width: 1024px) {
+    .feature-item {
+        min-width: calc(50% - 20px); /* 2 列布局 */
+    }
+}
+
+@media (max-width: 768px) {
+    .feature-item {
+        min-width: 100%; /* 1 列布局 */
+    }
+}
+
+.feature-item:hover {
+    transform: translateY(-5px);
 }
 
 .feature-icon {
